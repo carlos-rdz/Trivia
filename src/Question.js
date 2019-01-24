@@ -10,18 +10,47 @@ class Question extends Component {
           };
     }
 
+_RandomizeAnswers = (a) => {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+
 _getQuestions = (arrayOfObj) => {
     let listOfQuestions = arrayOfObj.map((questionObj) => {
-        return <li>{he.decode(questionObj.question)}</li>
+        return <div>{he.decode(questionObj.question)}</div>
     })
     return listOfQuestions
 }
+_getAnswers = (arrayOfObj) => {
+
+    let ArrayofAnswerArrays = arrayOfObj.map((questionObj) => {
+        let ArrayofAnswers = questionObj.incorrect_answers.map((wrongAnswer) => {
+            return <li> {wrongAnswer}</li>
+        })
+
+        ArrayofAnswers.push(<li>{questionObj.correct_answer}</li>)
+        return this._RandomizeAnswers(ArrayofAnswers)
+    })
+    return ArrayofAnswerArrays
+}
+
+
 
 render() {
     return (
-          <ul>
+        <div>
+          <div>
               {this._getQuestions(this.props.questionsArray)}
-          </ul>
+          </div>
+          <div>Answers: </div>
+          <ul> {this._getAnswers(this.props.questionsArray)} </ul>
+        </div>  
     );
   }
 

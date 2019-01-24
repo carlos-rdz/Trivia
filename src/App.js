@@ -7,12 +7,12 @@ class App extends Component {
     super(props);
 
     this.state = {
-      questions : [{question : ''}],
+      questions : [{question : '', incorrect_answers : []}],
     };
   }
 // need to HTML decode
   componentDidMount() {
-    fetch('https://opentdb.com/api.php?amount=2&difficulty=easy&type=multiple')
+    fetch('https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple')
       .then(response => response.json())
       .then(data => this.setState({ questions : data.results }));
   }
@@ -21,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-       <div>test</div>
+       <div>Question:</div>
        <Question
        questionsArray = {this.state.questions}
        />
