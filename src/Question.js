@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+var he = require('he');
 
 
 class Question extends Component {
@@ -11,7 +12,7 @@ class Question extends Component {
 
 _getQuestions = (arrayOfObj) => {
     let listOfQuestions = arrayOfObj.map((questionObj) => {
-        return <li>{questionObj.question}</li>
+        return <li>{he.decode(questionObj.question)}</li>
     })
     return listOfQuestions
 }
