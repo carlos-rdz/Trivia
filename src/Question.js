@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import { ListGroup, ListGroupItem, PageHeader, Button, ProgressBar, Grid } from 'react-bootstrap'
-var he = require('he');
+var he = require('he')
 
 
 class Question extends Component {
@@ -45,15 +45,20 @@ _RandomizeAnswers = (a) => {
     }
     return a;
 }
+
+
+
 render() {
+
+
     return (
+        
         <Grid> 
             <ProgressBar
-                className="progressBar"
-                bsStyle="info" 
+                bsStyle="info" active 
                 now={this.props.progress} 
-                label={`${this.props.progress/10} / 10`}
-            />;
+                label={`${this.props.progress/10}/10`}
+            />
             {this._getQuestions(this.props.question)}
             {/* dispalys questions or result after answering */}
             {this.props.result ? 
@@ -70,6 +75,7 @@ render() {
                 <ListGroup vertical block> 
                     {this._getAnswers(this.props.question)} 
                 </ListGroup>} 
+                
         </Grid>
     );
   }

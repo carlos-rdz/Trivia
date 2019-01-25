@@ -9,7 +9,8 @@ class App extends Component {
     this.state = {
       question : {question : '', incorrect_answers : []},
       result : false,
-      progress : 0
+      progress : 0,
+      gameOver : false
     };
   }
 // need to HTML decode
@@ -22,10 +23,17 @@ class App extends Component {
     this.setState({result : false})
   }
   _rightAnswer = () => {
-    this.setState({result : "Right"})
+
+    if (this.state.progress === 100) {
+      this.setState({gameOver : true})
+    } else {
+    this.setState({result : "Right"})}
   }
   _wrongAnswer = () => {
-    this.setState({result : "Wrong"})
+    if (this.state.progress === 100) {
+      this.setState({gameOver : true})
+    } else {
+    this.setState({result : "Wrong"})}
   }
 
   _handleNextClick = () => {
@@ -50,6 +58,14 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      {this.state.gameOver ? 
+
+        // need to create Game Over Compnent that tells user his score and play again
+
+
+      <div> Game Over </div> 
+      : 
+      <div> 
        <Question
        question = {this.state.question}
        fetch = {this._handleNextClick}
@@ -58,7 +74,10 @@ class App extends Component {
        rightAnswer = {this._rightAnswer}
        wrongAnswer = {this._wrongAnswer}
        progress = {this.state.progress}
+       gameOver = {this.state.gameOver}
        />
+       </div>
+       }
       </div>
     );
   }
