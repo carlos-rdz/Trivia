@@ -8,7 +8,8 @@ class App extends Component {
 
     this.state = {
       question : {question : '', incorrect_answers : []},
-      result : false
+      result : false,
+      progress : 0
     };
   }
 // need to HTML decode
@@ -27,12 +28,23 @@ class App extends Component {
     this.setState({result : "Wrong"})
   }
 
-  _fetchData = () => {
+  _handleNextClick = () => {
+
+    let newProgress = this.state.progress + 10;
     fetch('https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple')
       .then(response => response.json())
       .then(data => this.setState({ 
         result : false,
-        question : data.results[0] }));
+        question : data.results[0], 
+        progress : newProgress
+      }));
+  }
+
+  _addToProgress = () => {
+    let newProgress = this.state.progress + 1;
+    this.setState({
+      progres : newProgress
+    })
   }
 
   render() {
@@ -40,11 +52,12 @@ class App extends Component {
       <div className="App">
        <Question
        question = {this.state.question}
-       fetch = {this._fetchData}
+       fetch = {this._handleNextClick}
        result = {this.state.result}
        resetResult = {this._resetResult}
        rightAnswer = {this._rightAnswer}
        wrongAnswer = {this._wrongAnswer}
+       progress = {this.state.progress}
        />
       </div>
     );
