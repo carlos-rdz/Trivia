@@ -1,5 +1,5 @@
 import React, {Component} from "react"
-import { ListGroup, ListGroupItem, PageHeader, Button, ProgressBar, Grid } from 'react-bootstrap'
+import { Jumbotron, ListGroup, ListGroupItem, PageHeader, Button, ProgressBar, Grid } from 'react-bootstrap'
 var he = require('he')
 
 
@@ -13,7 +13,7 @@ class Question extends Component {
 
 // Takes the Obj and converts to JSX to display question
 _getQuestions = (Obj) => {
-    return <PageHeader>{he.decode(Obj.question)}</PageHeader>
+    return <Jumbotron>{he.decode(Obj.question)}</Jumbotron>
 }
 // Access the Obj then maps the incorrect answers then pushes the correct answer in the array
 _getAnswers = (Obj) => {

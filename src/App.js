@@ -65,7 +65,7 @@ class App extends Component {
 
       <div> Game Over </div> 
       : 
-      <div> 
+      <div className="questionContainer"> 
        <Question
        question = {this.state.question}
        fetch = {this._handleNextClick}
