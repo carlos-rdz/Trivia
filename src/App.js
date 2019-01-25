@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      questions : [{question : '', incorrect_answers : []}],
+      question : {question : '', incorrect_answers : []},
       result : false
     };
   }
@@ -15,7 +15,7 @@ class App extends Component {
   componentDidMount() {
     fetch('https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple')
       .then(response => response.json())
-      .then(data => this.setState({ questions : data.results }));
+      .then(data => this.setState({ question : data.results[0] }));
   }
   _resetResult = () => {
     this.setState({result : false})
@@ -32,14 +32,14 @@ class App extends Component {
       .then(response => response.json())
       .then(data => this.setState({ 
         result : false,
-        questions : data.results }));
+        question : data.results[0] }));
   }
 
   render() {
     return (
       <div className="App">
        <Question
-       questionsArray = {this.state.questions}
+       question = {this.state.question}
        fetch = {this._fetchData}
        result = {this.state.result}
        resetResult = {this._resetResult}
