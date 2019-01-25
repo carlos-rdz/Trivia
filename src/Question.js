@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import { ListGroup, ListGroupItem, PageHeader, Button } from 'react-bootstrap'
 var he = require('he');
 
 
@@ -6,7 +7,7 @@ class Question extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            filler : null
+            result : false
           };
     }
 
@@ -20,10 +21,9 @@ _RandomizeAnswers = (a) => {
     }
     return a;
 }
-
 _getQuestions = (arrayOfObj) => {
     let listOfQuestions = arrayOfObj.map((questionObj) => {
-        return <div>{he.decode(questionObj.question)}</div>
+        return <PageHeader>{he.decode(questionObj.question)}</PageHeader>
     })
     return listOfQuestions
 }
@@ -31,10 +31,11 @@ _getAnswers = (arrayOfObj) => {
 
     let ArrayofAnswerArrays = arrayOfObj.map((questionObj) => {
         let ArrayofAnswers = questionObj.incorrect_answers.map((wrongAnswer) => {
-            return <li> {wrongAnswer}</li>
+            return <ListGroupItem bsStyle="info"  onClick={this.props.wrongAnswer} >{wrongAnswer}</ListGroupItem>
+            
         })
-
-        ArrayofAnswers.push(<li>{questionObj.correct_answer}</li>)
+        ArrayofAnswers.push(<ListGroupItem bsStyle="info"  onClick={this.props.rightAnswer }>{questionObj.correct_answer}</ListGroupItem>
+        )
         return this._RandomizeAnswers(ArrayofAnswers)
     })
     return ArrayofAnswerArrays
@@ -44,13 +45,18 @@ _getAnswers = (arrayOfObj) => {
 
 render() {
     return (
-        <div>
-          <div>
-              {this._getQuestions(this.props.questionsArray)}
-          </div>
-          <div>Answers: </div>
-          <ul> {this._getAnswers(this.props.questionsArray)} </ul>
-        </div>  
+        <div> 
+            {this._getQuestions(this.props.questionsArray)}
+            {this.props.result ? 
+                <div>
+                    <div>{this.props.result}</div>
+                    <div>The correct answer is: {this.props.questionsArray[0].correct_answer}</div>
+                    <Button bsSize="large" block onClick={this.props.fetch}> Next Question </Button>
+                </div> : 
+                <ListGroup vertical block> 
+                    {this._getAnswers(this.props.questionsArray)} 
+                </ListGroup>} 
+        </div>
     );
   }
 
