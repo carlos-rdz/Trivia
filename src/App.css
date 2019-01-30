@@ -6,6 +6,7 @@
 }
 .questionContainer {
   padding-top: 10px;
+  height: 100%;
 }
 
 .progress {
@@ -26,6 +27,12 @@
 }
 
 .list-group-item{
-  /* color: #EE82EE; */
+  font-size: 20px;
+  text-align: center;
 }
+
+.gridDisplay {
+  height: 100%;
+}
+
 

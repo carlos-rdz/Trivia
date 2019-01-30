@@ -53,7 +53,7 @@ render() {
 
     return (
         
-        <Grid> 
+        <Grid className="column gridDisplay"> 
             <ProgressBar
                 bsStyle="info" active 
                 now={this.props.progress} 
@@ -62,12 +62,13 @@ render() {
             {this._getQuestions(this.props.question)}
             {/* dispalys questions or result after answering */}
             {this.props.result ? 
-                <div>
+                <div className="col align-self-end">
                     <div>{this.props.result}</div>
                     <div>The correct answer is: {this.props.question.correct_answer}</div>
                     <Button 
                         bsSize="large" block 
-                        onClick={this.props.fetch}> 
+                        onClick={this.props.fetch}
+                        > 
                         Next Question 
                     </Button>
                 </div> 
@@ -75,7 +76,6 @@ render() {
                 <ListGroup vertical block> 
                     {this._getAnswers(this.props.question)} 
                 </ListGroup>} 
-                
         </Grid>
     );
   }

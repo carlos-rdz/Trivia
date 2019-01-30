@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Question from './Question';
+import GameOver from './GameOver';
+import Login from './Login';
 
 class App extends Component {
   constructor(props) {
@@ -10,11 +12,13 @@ class App extends Component {
       question : {question : '', incorrect_answers : []},
       result : false,
       progress : 0,
-      gameOver : false
+      gameOver : false,
+      QuestionsRight : 0
     };
   }
 // need to HTML decode
   componentDidMount() {
+
     fetch('https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple')
       .then(response => response.json())
       .then(data => this.setState({ question : data.results[0] }));
@@ -27,7 +31,10 @@ class App extends Component {
     if (this.state.progress === 100) {
       this.setState({gameOver : true})
     } else {
-    this.setState({result : "Right"})}
+    this.setState({
+      result : "Right",
+      QuestionsRight : this.state.QuestionsRight + 1
+  })}
   }
   _wrongAnswer = () => {
     if (this.state.progress === 100) {
@@ -55,6 +62,18 @@ class App extends Component {
     })
   }
 
+  _resetGame = () => {
+    fetch('https://opentdb.com/api.php?amount=1&difficulty=easy&type=multiple')
+      .then(response => response.json())
+      .then(data => this.setState({ 
+        result : false,
+        question : data.results[0], 
+        progress : 0,
+        gameOver : false,
+        QuestionsRight : 0
+      }));
+  }
+
   render() {
     return (
       <div className="App">
@@ -63,9 +82,13 @@ class App extends Component {
         // need to create Game Over Compnent that tells user his score and play again
 
 
-      <div> Game Over </div> 
+      <GameOver
+      QuestionsRight = {this.state.QuestionsRight}
+      resetGame = {this._resetGame}
+      />
       : 
       <div className="questionContainer"> 
+      <Login/>
        <Question
        question = {this.state.question}
        fetch = {this._handleNextClick}
