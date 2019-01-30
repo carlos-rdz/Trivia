@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Question from './Question';
 import GameOver from './GameOver';
@@ -76,11 +77,20 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-      {this.state.gameOver ? 
-
-        // need to create Game Over Compnent that tells user his score and play again
-
+      <Router>
+        <div>
+        <Route path="/login"
+        render={props => {
+							return (
+								<Login/>
+							);
+						}}/>
+        
+        
+        <Route path="/" exact render={props => {
+							return (
+								<div className="App">
+                {this.state.gameOver ? 
 
       <GameOver
       QuestionsRight = {this.state.QuestionsRight}
@@ -88,7 +98,6 @@ class App extends Component {
       />
       : 
       <div className="questionContainer"> 
-      <Login/>
        <Question
        question = {this.state.question}
        fetch = {this._handleNextClick}
@@ -102,6 +111,11 @@ class App extends Component {
        </div>
        }
       </div>
+
+							);
+						}}/>
+            </div>
+      </Router>
     );
   }
 }

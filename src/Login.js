@@ -20,8 +20,15 @@ componentDidMount(){
 
 render()
 {
-let user = this.state.users.email;
-return (<div> {user} is logged in</div>)
+return (<form>
+     <label>
+         Email:
+         {/* change password to password input */}
+         <input type="text" name="name"/>
+     </label>
+     <input type="submit" value="Submit"/>
+     </form>
+     )
 }}
 
 export default Login;
