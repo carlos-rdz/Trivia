@@ -1,5 +1,10 @@
-import React, {Component} from "react"
-import { Jumbotron, ListGroup, ListGroupItem, PageHeader, Button, ProgressBar, Grid } from 'react-bootstrap'
+import React, {Component} from "react";
+import Container from 'react-bootstrap/Container';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+import Jumbotron from 'react-bootstrap/Jumbotron';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
+// import { Jumbotron, ListGroup, ListGroupItem, PageHeader, Button, ProgressBar, Grid } from 'react-bootstrap'
 var he = require('he')
 
 
@@ -7,10 +12,16 @@ class Question extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            result : false
+            result : false,
+            user : ""
           };
     }
 
+
+componentDidMount(){
+    fetch('/game')
+        .then(userInfo => {this.setState({user : userInfo})})
+}
 // Takes the Obj and converts to JSX to display question
 _getQuestions = (Obj) => {
     return <Jumbotron>{he.decode(Obj.question)}</Jumbotron>
@@ -18,19 +29,19 @@ _getQuestions = (Obj) => {
 // Access the Obj then maps the incorrect answers then pushes the correct answer in the array
 _getAnswers = (Obj) => {
         let ArrayofAnswers = Obj.incorrect_answers.map((wrongAnswer) => {
-            return <ListGroupItem 
-            bsStyle="info" 
+            return <ListGroup.Item 
+            variant="info" 
             onClick={this.props.wrongAnswer}>
             {he.decode(wrongAnswer)}
-            </ListGroupItem>
+            </ListGroup.Item>
         });
       
         ArrayofAnswers.push(
-            <ListGroupItem 
-            bsStyle="info" 
+            <ListGroup.Item 
+            variant="info" 
             onClick={this.props.rightAnswer }>
             {Obj.correct_answer}
-            </ListGroupItem>
+            </ListGroup.Item>
         )
         return this._RandomizeAnswers(ArrayofAnswers)
 }
@@ -53,9 +64,9 @@ render() {
 
     return (
         
-        <Grid className="column gridDisplay"> 
+        <Container className="column gridDisplay"> 
             <ProgressBar
-                bsStyle="info" active 
+                striped variant="info" active 
                 now={this.props.progress} 
                 label={`${this.props.progress/10}/10`}
             />
@@ -76,7 +87,7 @@ render() {
                 <ListGroup vertical block> 
                     {this._getAnswers(this.props.question)} 
                 </ListGroup>} 
-        </Grid>
+        </Container>
     );
   }
 
