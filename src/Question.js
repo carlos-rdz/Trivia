@@ -17,9 +17,10 @@ class Question extends Component {
           };
     }
 
-
+// this needs to be moved into its own component for user display
 componentDidMount(){
     fetch('/game')
+        .then(response => response.json())
         .then(userInfo => {this.setState({user : userInfo})})
 }
 // Takes the Obj and converts to JSX to display question

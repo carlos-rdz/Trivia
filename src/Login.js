@@ -18,7 +18,7 @@ class Login extends Component {
         };
       
 _handleSubmit = (event) => {
-    return fetch('/login',{
+    fetch('/auth',{
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -29,9 +29,7 @@ _handleSubmit = (event) => {
             password: this.state.password
           })
     })
-    // .then(this.props.loginCheck())
-    .then(this.setState({submitted : true}))
-    
+    this.setState({submitted : true})
     event.preventDefault();
 }
 

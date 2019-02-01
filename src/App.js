@@ -81,11 +81,11 @@ class App extends Component {
       }));
   }
 
-  _isLoggedIn = () => {
-    fetch('/game')
-    .then(response => response.json())
-    .then(data => {this.setState({user : data})})
-  }
+  // _isLoggedIn = () => {
+  //   fetch('/game')
+  //   .then(response => response.json())
+  //   .then(data => {this.setState({user : data})})
+  // }
 
   _logout = () => {
     fetch('/end')
