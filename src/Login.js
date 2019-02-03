@@ -30,6 +30,7 @@ _handleSubmit = (event) => {
           })
     })
     this.setState({submitted : true})
+    console.log("posted")
     event.preventDefault();
 }
 

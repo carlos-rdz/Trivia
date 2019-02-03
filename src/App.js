@@ -4,7 +4,9 @@ import './App.css';
 import Question from './Question';
 import GameOver from './GameOver';
 import Login from './Login';
+import UserInfo from './userInfo'
 import Button from 'react-bootstrap/Button';
+
 
 class App extends Component {
   constructor(props) {
@@ -107,6 +109,7 @@ class App extends Component {
             render={props => {
 							return (
 								<div className="App">
+                <UserInfo></UserInfo>
                   {this.state.gameOver ? 
                   <GameOver
                     QuestionsRight = {this.state.QuestionsRight}
