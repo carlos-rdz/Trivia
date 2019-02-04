@@ -8,6 +8,8 @@ import UserInfo from './userInfo'
 import Button from 'react-bootstrap/Button';
 
 
+// need to do research on react sessions
+
 class App extends Component {
   constructor(props) {
     super(props);

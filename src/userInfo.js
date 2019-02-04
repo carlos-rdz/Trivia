@@ -17,7 +17,7 @@ componentDidMount(){
     fetch('/game')
     .then(response => response.json())
     .catch(console.log("not logged in"))
-        .then(userInfo => {this.setState({user : userInfo})})
+    .then(userInfo => {this.setState({user : userInfo})})
 }
 render() 
 
