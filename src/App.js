@@ -7,7 +7,6 @@ import Login from './Login';
 import UserInfo from './userInfo'
 import Button from 'react-bootstrap/Button';
 
-
 // need to do research on react sessions
 
 class App extends Component {
@@ -30,9 +29,6 @@ class App extends Component {
       .then(response => response.json())
       .then(data => this.setState({ question : data.results[0] }))
   }
-
-
-  
 
   _resetResult = () => {
     this.setState({result : false})
